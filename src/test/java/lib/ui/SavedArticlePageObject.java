@@ -1,5 +1,6 @@
 package lib.ui;
 
+import io.qameta.allure.Step;
 import lib.Platform;
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;
@@ -15,6 +16,11 @@ abstract public class SavedArticlePageObject extends MainPageObject
     SAVED_RESULT_LOCATOR,
     SAVED_BUTTON,
     CLOSE_SYNC_BUTTON;
+
+    public SavedArticlePageObject(RemoteWebDriver driver)
+    {
+        super(driver);
+    }
 
     private static String getFolderXpathByName (String name_of_folder)
     {
@@ -36,11 +42,7 @@ abstract public class SavedArticlePageObject extends MainPageObject
         return REMOVE_FROM_SAVED_BUTTON.replace("{TITLE}", article_title);
     }
 
-    public SavedArticlePageObject(RemoteWebDriver driver)
-    {
-        super(driver);
-    }
-
+    @Step("Open folder by name '{name_of_folder}'")
     public void openFolderByName (String name_of_folder)
     {
         String folder_name_xpath = getFolderXpathByName(name_of_folder);
@@ -51,6 +53,7 @@ abstract public class SavedArticlePageObject extends MainPageObject
         );
     }
 
+    @Step("Open second saved article by title '{second_article_title}' and check its title")
     public void openSecondSavedArticleByTitleAndCheck(String second_article_title)
     {
         this.waitForSecondArticleToAppearByTitle(second_article_title);
@@ -83,6 +86,7 @@ abstract public class SavedArticlePageObject extends MainPageObject
         }
     }
 
+    @Step("Open second saved article by title '{second_article_title}'")
     public void openSecondSavedArticleByTitle(String second_article_title)
     {
         this.waitForSecondArticleToAppearByTitle(second_article_title);
@@ -93,6 +97,7 @@ abstract public class SavedArticlePageObject extends MainPageObject
                 20);
     }
 
+    @Step("Open first saved article by title '{article_title}'")
     public void openFirstSavedArticleByTitle(String article_title)
     {
         this.waitForArticleToAppearByTitle(article_title);
@@ -103,6 +108,7 @@ abstract public class SavedArticlePageObject extends MainPageObject
                 20);
     }
 
+    @Step("Check the saved status of the article")
     public void checkWatchStar () {
         if (Platform.getInstance().isIOS()){
         this.waitForElementPresent(SAVED_BUTTON,"Cannot find star button",20);
@@ -118,6 +124,7 @@ abstract public class SavedArticlePageObject extends MainPageObject
         }
 }
 
+    @Step("Get the number of saved articles")
     public int getAmountOfSavedArticles () {
         this.waitForElementPresent(
                 SAVED_RESULT_LOCATOR,
@@ -126,6 +133,7 @@ abstract public class SavedArticlePageObject extends MainPageObject
         return this.getAmountOfElements((SAVED_RESULT_LOCATOR));
     }
 
+    @Step("Wait for article with title '{article_title}' to disappear")
     public void waitForArticleToDisappearByTitle (String article_title)
     {
         String article_title_xpath = getSavedArticleXpathByName(article_title);
@@ -136,6 +144,7 @@ abstract public class SavedArticlePageObject extends MainPageObject
         );
     }
 
+    @Step("Wait for article with title '{article_title}' to appear")
     public void waitForArticleToAppearByTitle (String article_title)
     {
         String article_title_xpath = getSavedArticleXpathByName(article_title);
@@ -146,6 +155,7 @@ abstract public class SavedArticlePageObject extends MainPageObject
         );
     }
 
+    @Step("Wait for second article with title '{second_article_title}' to appear")
     public void waitForSecondArticleToAppearByTitle (String second_article_title)
     {
         String second_article_title_xpath = getSavedArticleXpathByName(second_article_title);
@@ -156,6 +166,7 @@ abstract public class SavedArticlePageObject extends MainPageObject
         );
     }
 
+    @Step("Swipe to delete article with title '{article_title}'")
     public void swipeByArticleToDelete (String article_title)
     {
         if (Platform.getInstance().isIOS()){

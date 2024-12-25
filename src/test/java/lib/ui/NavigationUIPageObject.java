@@ -1,6 +1,7 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
+import io.qameta.allure.Step;
 import lib.Platform;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -17,6 +18,7 @@ abstract public class NavigationUIPageObject extends MainPageObject
         super(driver);
     }
 
+    @Step("Navigate back by clicking the 'Back' button")
     public void navigation_back ()
     {
         this.waitForElementAndClick(
@@ -26,6 +28,7 @@ abstract public class NavigationUIPageObject extends MainPageObject
         );
     }
 
+    @Step("Open the navigation menu")
     public void openNavigation() {
         if (Platform.getInstance().isMw()){
             this.waitForElementAndClick(OPEN_NAVIGATION, "Cannot find and click menu button", 50);
@@ -34,6 +37,7 @@ abstract public class NavigationUIPageObject extends MainPageObject
         }
     }
 
+    @Step("Click on the 'Saved' button")
     public void clickSaved()
     {
         if (Platform.getInstance().isMw()) {
@@ -45,6 +49,7 @@ abstract public class NavigationUIPageObject extends MainPageObject
         );
     }
 
+    @Step("Click the 'Cancel' button in the search line")
     public void clickCancel()
     {
         this.waitForElementAndClick(CANCEL_BUTTON, "Cannot find cancel button in search line",5);

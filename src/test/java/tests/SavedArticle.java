@@ -1,5 +1,7 @@
 package tests;
 
+import io.qameta.allure.*;
+import io.qameta.allure.junit4.DisplayName;
 import lib.CoreTestCase;
 import lib.Platform;
 import lib.ui.*;
@@ -14,6 +16,11 @@ public class SavedArticle extends CoreTestCase
     private static final String password = "Q1W2E3R4";
 
     @Test
+    @Features(value = {@Feature(value = "Search"),@Feature(value = "Article"),@Feature(value = "Save articles")})
+    @DisplayName("Save the first article to the reading list")
+    @Description("This test verifies that a user can save an article to their reading list or saved items and then delete it.")
+    @Step("Starting test testSaveFirstArticleToMyList")
+    @Severity(SeverityLevel.CRITICAL)
     public void testSaveFirstArticleToMyList ()
     {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
@@ -66,6 +73,11 @@ public class SavedArticle extends CoreTestCase
     }
 
     @Test
+    @Features(value = {@Feature(value = "Search"),@Feature(value = "Article"),@Feature(value = "Save articles")})
+    @DisplayName("Save two articles and delete one")
+    @Description("This test verifies that a user can save two articles to the reading list or saved items, delete one, and verify the remaining.")
+    @Step("Starting test testSaveTwoArticlesAndDeleteOne")
+    @Severity(SeverityLevel.CRITICAL)
     public void testSaveTwoArticlesAndDeleteOne () {
         SearchPageObject SearchPageObject = SearchPageObjectFactory.get(driver);
         OnbordingPageObject OnbordingPageObject = OndordingPageObjectFactory.get(driver);
@@ -125,7 +137,7 @@ public class SavedArticle extends CoreTestCase
         }
         SavedArticlePageObject.swipeByArticleToDelete(article_title);
         int amount_of_saved_result = SavedArticlePageObject.getAmountOfSavedArticles();
-            assertTrue(
+            Assert.assertTrue(
                     "Amount of saved results more than one",
                     amount_of_saved_result == 1
         );
